@@ -89,8 +89,8 @@ var getRandomPin = function () {
       'address': 'location.x',
       'price': getRandomNumber(priceMin, priceMax),
       'type': getRandomElement(type),
-      'rooms': getRandomNumber(1, 10),
-      'guests': getRandomNumber(1, 10),
+      'rooms': getRandomNumber(roomsMin, roomsMax),
+      'guests': getRandomNumber(guestsMin, guestsMax),
       'checkin': getRandomElement(check),
       'checkout': getRandomElement(check),
       'features': getRandomElement(features),
@@ -125,7 +125,7 @@ var createPins = function (element) {
 
   pinPicture.src = element.author.avatar;
   pinPicture.alt = element.offer.title;
-  pinElement.style.left = (element.location.x - widthPin/2) + 'px';
+  pinElement.style.left = (element.location.x - widthPin / 2) + 'px';
   pinElement.style.top = (element.location.y - heightPin) + 'px';
 
   return pinElement;
