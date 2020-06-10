@@ -1,5 +1,8 @@
 'use strict';
 
+var widthPin = 50;
+var heightPin = 70;
+
 var type = [
   'palace',
   'flat',
@@ -116,13 +119,14 @@ var randomPins = function () {
 var pinListElement = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-var createPins = function () {
+var createPins = function (element) {
   var pinElement = pinTemplate.cloneNode(true);
   var pinPicture = pinElement.querySelector('img');
 
-  pinPicture.src = 'img/avatars/user' + 0 + getRandomNumber(avatarMin, avatarMax) + '.png';
-  pinElement.style.left = getRandomNumber(minX, maxX) + 'px';
-  pinElement.style.top = getRandomNumber(minY, maxY) + 'px';
+  pinPicture.src = element.author.avatar;
+  pinPicture.alt = element.offer.title;
+  pinElement.style.left = (element.location.x - widthPin/2) + 'px';
+  pinElement.style.top = (element.location.y - heightPin) + 'px';
 
   return pinElement;
 };
