@@ -76,8 +76,7 @@ function getRandomElement(arr) {
   return arr[rand];
 }
 
-// var map = document.querySelector('.map');
-// map.classList.remove('map--faded');
+var map = document.querySelector('.map');
 
 var getRandomPin = function () {
   var pin = {
@@ -142,16 +141,68 @@ var renderPins = function () {
   pinListElement.appendChild(fragment);
 };
 
-// renderPins();
-
 
 // Валидация
 
 var adForm = document.querySelector('.ad-form');
+var mapFilters = document.querySelector('.map__filters');
 var fieldsOff = adForm.querySelectorAll('fieldset');
 
-console.log(fieldsOff);
+mapFilters.classList.add('ad-form--disabled');
 
-fieldsOff.disabled = true;
+for (var fieldOff of fieldsOff) {
+  fieldOff.disabled = true;
+};
 
-console.log(fieldsOff);
+var mapPinMain = document.querySelector('.map__pin--main');
+
+var activeForm = function () {
+  map.classList.remove('map--faded');
+  mapFilters.classList.remove('ad-form--disabled');
+  adForm.classList.remove('ad-form--disabled')
+  for (var fieldOff of fieldsOff) {
+    fieldOff.disabled = false;
+  };
+  renderPins();
+};
+
+mapPinMain.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  if (evt.which == 1) {
+    activeForm();
+  }
+});
+
+mapPinMain.addEventListener('keydown', function (evt) {
+  evt.preventDefault();
+  if (evt.key === 'Enter') {
+    activeForm();
+  }
+});
+
+var inputAddress = document.querySelector('#address');
+
+  if (map.classList.contains('map--faded')){
+    inputAddress.value = '603 px 408 px';
+  }else {
+    inputAddress.value = '605 px 408 px';
+  };
+
+var roomsNumbers = adForm.querySelector('#room_number').children;
+var capacity = adForm.querySelector('#capacity').children;
+
+
+var validi = function (roomsNumbers, capacity) {
+  // for(var i=0; i < roomsNumbers.length; i++);
+  // for(var j=0; j < capacity.length; j++);
+
+  if (roomsNumbers[0].selected) capacity[2].setAttribute = selected;
+
+  if (roomsNumbers[1].selected = true) capacity[1].setAttribute = selected;
+
+  if (roomsNumbers[2].selected = true) capacity[0].setAttribute = selected;
+
+  if (roomsNumbers[3].selected = true) capacity[3].setAttribute = selected;
+};
+
+
