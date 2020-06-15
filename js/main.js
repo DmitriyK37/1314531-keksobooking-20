@@ -150,25 +150,28 @@ var fieldsOff = adForm.querySelectorAll('fieldset');
 
 mapFilters.classList.add('ad-form--disabled');
 
-for (var fieldOff of fieldsOff) {
-  fieldOff.disabled = true;
+var formDisable = function () {
+  for (var i = 0; i < fieldsOff.length; i++) {
+    fieldsOff[i].disabled = true;
+  }
 };
+formDisable();
 
 var mapPinMain = document.querySelector('.map__pin--main');
 
 var activeForm = function () {
   map.classList.remove('map--faded');
   mapFilters.classList.remove('ad-form--disabled');
-  adForm.classList.remove('ad-form--disabled')
-  for (var fieldOff of fieldsOff) {
-    fieldOff.disabled = false;
-  };
+  adForm.classList.remove('ad-form--disabled');
+  for (var i = 0; i < fieldsOff.length; i++) {
+    fieldsOff[i].disabled = false;
+  }
   renderPins();
 };
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
-  if (evt.which == 1) {
+  if (evt.which === 1) {
     activeForm();
   }
 });
@@ -182,27 +185,40 @@ mapPinMain.addEventListener('keydown', function (evt) {
 
 var inputAddress = document.querySelector('#address');
 
-  if (map.classList.contains('map--faded')){
+var addressMap = function () {
+  if (map.classList.contains('map--faded')) {
     inputAddress.value = '603 px 408 px';
-  }else {
+  } else {
     inputAddress.value = '605 px 408 px';
-  };
+  }
+};
+addressMap();
+// Тут условие не работает, посмотри пожалуйста
+
 
 var roomsNumbers = adForm.querySelector('#room_number').children;
 var capacity = adForm.querySelector('#capacity').children;
 
+// for (var i=0; i < roomsNumbers.length; i++) {
 
-var validi = function (roomsNumbers, capacity) {
-  // for(var i=0; i < roomsNumbers.length; i++);
-  // for(var j=0; j < capacity.length; j++);
+// };
 
-  if (roomsNumbers[0].selected) capacity[2].setAttribute = selected;
+// for (var j=0; j < capacity.length; j++);
 
-  if (roomsNumbers[1].selected = true) capacity[1].setAttribute = selected;
 
-  if (roomsNumbers[2].selected = true) capacity[0].setAttribute = selected;
+// Почему-то не работает, не могу разабраться!
 
-  if (roomsNumbers[3].selected = true) capacity[3].setAttribute = selected;
+var validi = function () {
+  if (roomsNumbers[0].selected) {
+    capacity[2].selected = true;
+  } if (roomsNumbers[1].selected) {
+    capacity[1].selected = true;
+  } if (roomsNumbers[2].selected) {
+    capacity[0].selected = true;
+  } if (roomsNumbers[3].selected) {
+    capacity[3].selected = true;
+  }
 };
 
+validi();
 
