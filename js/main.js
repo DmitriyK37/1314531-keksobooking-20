@@ -148,38 +148,38 @@ var adForm = document.querySelector('.ad-form');
 var mapFilters = document.querySelector('.map__filters');
 var fieldsOff = adForm.querySelectorAll('fieldset');
 
+
 mapFilters.classList.add('ad-form--disabled');
 
-var formDisable = function () {
-  for (var i = 0; i < fieldsOff.length; i++) {
-    fieldsOff[i].disabled = true;
-  }
-};
-formDisable();
+fieldsOff.forEach(function (el) {
+  el.disabled = true;
+});
 
 var mapPinMain = document.querySelector('.map__pin--main');
 
-var activeForm = function () {
+var activateForm = function () {
   map.classList.remove('map--faded');
   mapFilters.classList.remove('ad-form--disabled');
   adForm.classList.remove('ad-form--disabled');
-  for (var i = 0; i < fieldsOff.length; i++) {
-    fieldsOff[i].disabled = false;
-  }
+  fieldsOff.forEach(function (el) {
+    el.disabled = false;
+  });
   renderPins();
+  addressMap();
+  validate();
 };
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
   if (evt.which === 1) {
-    activeForm();
+    activateForm();
   }
 });
 
 mapPinMain.addEventListener('keydown', function (evt) {
   evt.preventDefault();
   if (evt.key === 'Enter') {
-    activeForm();
+    activateForm();
   }
 });
 
@@ -187,38 +187,30 @@ var inputAddress = document.querySelector('#address');
 
 var addressMap = function () {
   if (map.classList.contains('map--faded')) {
-    inputAddress.value = '603 px 408 px';
+    inputAddress.value = (mapPinMain.offsetLeft + widthPin / 2 + 'px ') + (mapPinMain.offsetTop + heightPin / 2 + 'px');
   } else {
-    inputAddress.value = '605 px 408 px';
+    inputAddress.value = (mapPinMain.offsetLeft + widthPin / 2 + 'px ') + (mapPinMain.offsetTop + heightPin + 22 + 'px');
   }
 };
 addressMap();
-// Тут условие не работает, посмотри пожалуйста
 
+var roomsNumbers = adForm.querySelector('#room_number');
+var capacity = adForm.querySelector('#capacity');
 
-var roomsNumbers = adForm.querySelector('#room_number').children;
-var capacity = adForm.querySelector('#capacity').children;
-
-// for (var i=0; i < roomsNumbers.length; i++) {
-
-// };
-
-// for (var j=0; j < capacity.length; j++);
-
-
-// Почему-то не работает, не могу разабраться!
-
-var validi = function () {
-  if (roomsNumbers[0].selected) {
-    capacity[2].selected = true;
-  } if (roomsNumbers[1].selected) {
-    capacity[1].selected = true;
-  } if (roomsNumbers[2].selected) {
-    capacity[0].selected = true;
-  } if (roomsNumbers[3].selected) {
-    capacity[3].selected = true;
+var validate = function () {
+  if (roomsNumbers.value === capacity.value) {
+    roomsNumbers.setCustomValidity('');
+  } if (roomsNumbers.value !== capacity.value) {
+    roomsNumbers.setCustomValidity('Количество комнат должно совпадать с количеством гостей');
+  } if ((roomsNumbers.value === '100 комнат') === (capacity.value === 'не для гостей')) {
+    roomsNumbers.setCustomValidity('Выберите другое значение');
   }
 };
 
-validi();
+roomsNumbers.addEventListener('change', function () {
+  validate();
+});
 
+capacity.addEventListener('change', function () {
+  validate();
+});
