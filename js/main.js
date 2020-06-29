@@ -1,7 +1,7 @@
 'use strict';
 
-var widthPin = 50;
-var heightPin = 70;
+var widthPin = 65;
+var heightPin = 65;
 
 var type = [
   'palace',
@@ -169,27 +169,29 @@ var activateForm = function () {
   validate();
 };
 
-mapPinMain.addEventListener('mousedown', function (evt) {
+var openForm = function (evt) {
   evt.preventDefault();
   if (evt.which === 1) {
     activateForm();
+    mapPinMain.removeEventListener('mousedown', openForm);
   }
-});
-
-mapPinMain.addEventListener('keydown', function (evt) {
-  evt.preventDefault();
   if (evt.key === 'Enter') {
     activateForm();
+    mapPinMain.removeEventListener('keydown', openForm);
   }
-});
+};
+
+mapPinMain.addEventListener('mousedown', openForm);
+
+mapPinMain.addEventListener('keydown', openForm);
 
 var inputAddress = document.querySelector('#address');
 
 var addressMap = function () {
   if (map.classList.contains('map--faded')) {
-    inputAddress.value = (mapPinMain.offsetLeft + widthPin / 2 + 'px ') + (mapPinMain.offsetTop + heightPin / 2 + 'px');
+    inputAddress.value = Math.round(mapPinMain.offsetLeft + widthPin / 2) + ', ' + Math.round(mapPinMain.offsetTop + heightPin / 2);
   } else {
-    inputAddress.value = (mapPinMain.offsetLeft + widthPin / 2 + 'px ') + (mapPinMain.offsetTop + heightPin + 22 + 'px');
+    inputAddress.value = Math.round(mapPinMain.offsetLeft + widthPin / 2) + ', ' + Math.round(mapPinMain.offsetTop + heightPin + 22);
   }
 };
 addressMap();
@@ -198,12 +200,20 @@ var roomsNumbers = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
 
 var validate = function () {
-  if (roomsNumbers.value === capacity.value) {
-    roomsNumbers.setCustomValidity('');
-  } if (roomsNumbers.value !== capacity.value) {
-    roomsNumbers.setCustomValidity('Количество комнат должно совпадать с количеством гостей');
-  } if ((roomsNumbers.value === '100 комнат') === (capacity.value === 'не для гостей')) {
-    roomsNumbers.setCustomValidity('Выберите другое значение');
+  if (roomsNumbers.value === '100') {
+    if (capacity.value !== '0') {
+      roomsNumbers.setCustomValidity('Выберите другое значение');
+    } else {
+      roomsNumbers.setCustomValidity('');
+    }
+  } else {
+    if (capacity.value === '0') {
+      roomsNumbers.setCustomValidity('Выберите другое значение');
+    } else if (roomsNumbers.value >= capacity.value) {
+      roomsNumbers.setCustomValidity('');
+    } else {
+      roomsNumbers.setCustomValidity('Количество гостей не должно привышать количеством комнат');
+    }
   }
 };
 
