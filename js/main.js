@@ -1,7 +1,7 @@
 'use strict';
 
-var widthPin = 50;
-var heightPin = 70;
+var widthPin = 65;
+var heightPin = 65;
 
 var type = [
   'palace',
@@ -77,7 +77,6 @@ function getRandomElement(arr) {
 }
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
 var getRandomPin = function () {
   var pin = {
@@ -142,4 +141,86 @@ var renderPins = function () {
   pinListElement.appendChild(fragment);
 };
 
-renderPins();
+
+// Валидация
+
+var adForm = document.querySelector('.ad-form');
+var mapFilters = document.querySelector('.map__filters');
+var fieldsOff = adForm.querySelectorAll('fieldset');
+
+
+mapFilters.classList.add('ad-form--disabled');
+
+fieldsOff.forEach(function (el) {
+  el.disabled = true;
+});
+
+var mapPinMain = document.querySelector('.map__pin--main');
+
+var activateForm = function () {
+  map.classList.remove('map--faded');
+  mapFilters.classList.remove('ad-form--disabled');
+  adForm.classList.remove('ad-form--disabled');
+  fieldsOff.forEach(function (el) {
+    el.disabled = false;
+  });
+  renderPins();
+  addressMap();
+  validate();
+};
+
+var openForm = function (evt) {
+  evt.preventDefault();
+  if (evt.which === 1) {
+    activateForm();
+    mapPinMain.removeEventListener('mousedown', openForm);
+  }
+  if (evt.key === 'Enter') {
+    activateForm();
+    mapPinMain.removeEventListener('keydown', openForm);
+  }
+};
+
+mapPinMain.addEventListener('mousedown', openForm);
+
+mapPinMain.addEventListener('keydown', openForm);
+
+var inputAddress = document.querySelector('#address');
+
+var addressMap = function () {
+  if (map.classList.contains('map--faded')) {
+    inputAddress.value = Math.round(mapPinMain.offsetLeft + widthPin / 2) + ', ' + Math.round(mapPinMain.offsetTop + heightPin / 2);
+  } else {
+    inputAddress.value = Math.round(mapPinMain.offsetLeft + widthPin / 2) + ', ' + Math.round(mapPinMain.offsetTop + heightPin + 22);
+  }
+};
+addressMap();
+
+var roomsNumbers = adForm.querySelector('#room_number');
+var capacity = adForm.querySelector('#capacity');
+
+var validate = function () {
+  if (roomsNumbers.value === '100') {
+    if (capacity.value !== '0') {
+      roomsNumbers.setCustomValidity('Выберите другое значение');
+    } else {
+      roomsNumbers.setCustomValidity('');
+    }
+  } else {
+    if (capacity.value === '0') {
+      roomsNumbers.setCustomValidity('Выберите другое значение');
+    } else if (roomsNumbers.value >= capacity.value) {
+      roomsNumbers.setCustomValidity('');
+    } else {
+      roomsNumbers.setCustomValidity('Количество гостей не должно привышать количеством комнат');
+    }
+  }
+};
+
+roomsNumbers.addEventListener('change', function () {
+  validate();
+});
+
+capacity.addEventListener('change', function () {
+  validate();
+});
