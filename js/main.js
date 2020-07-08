@@ -121,11 +121,36 @@ var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pi
 var createPin = function (element) {
   var pinElement = pinTemplate.cloneNode(true);
   var pinPicture = pinElement.querySelector('img');
-
   pinPicture.src = element.author.avatar;
   pinPicture.alt = element.offer.title;
   pinElement.style.left = (element.location.x - widthPin / 2) + 'px';
   pinElement.style.top = (element.location.y - heightPin) + 'px';
+
+  // Создание карточек
+  // var openCart = function () {
+  pinElement.addEventListener('click', function () {
+    if (document.getElementById('card__on')) {
+      createCard.remove();
+    } else {
+      createCard(element);
+      // pinElement.removeEventListener('click', openCart);
+      // pinElement.removeEventListener('keydown', openCart);
+    }
+  });
+  pinElement.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      if (document.getElementById('card__on')) {
+        createCard.remove();
+      } else {
+        createCard(element);
+        // pinElement.removeEventListener('click', openCart);
+        // pinElement.removeEventListener('keydown', openCart);
+      }
+    }
+  });
+  // };
+  // pinElement.addEventListener('click', openCart);
+  // pinElement.addEventListener('keydown', openCart);
 
   return pinElement;
 };
@@ -138,7 +163,6 @@ var renderPins = function (pinList) {
   for (var i = 0; i < pinList.length; i++) {
     fragment.appendChild(createPin(pinList[i]));
   }
-
   pinListElement.appendChild(fragment);
 };
 
@@ -221,18 +245,25 @@ var createCard = function (element) {
 
   var popupCard = document.querySelector('.map__card');
   var closeCart = document.querySelector('.popup__close');
-  closeCart.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    popupCard.remove();
-  });
 
-  closeCart.addEventListener('keydown', function (evt) {
+  var closesCart = function (evt) {
     evt.preventDefault();
-    if (evt.keyCode === 27) {
+    if (evt.which === 1) {
       popupCard.remove();
+      popupCard.removeEventListener('click', closesCart);
+      popupCard.removeEventListener('keydown', closesCart);
     }
-  });
+    if (evt.key === 'Escape') {
+      popupCard.remove();
+      mapPinMain.removeEventListener('keydown', openForm);
+      mapPinMain.removeEventListener('click', openForm);
+    }
+  };
+
+  closeCart.addEventListener('click', closesCart);
+  map.addEventListener('keydown', closesCart);
 };
+
 
 // Валидация
 
@@ -260,26 +291,18 @@ var activateForm = function () {
   renderPins(pins);
   addressMap();
   validate();
-  var mapPin = document.querySelectorAll('.map__pin');
+  // var mapPin = document.querySelectorAll('.map__pin');
 
-  // for (var i = 0; i < mapPin.length; i++) {
-  //   mapPin.addEventListener('click', function (evt) {
+  // for (var i = 1; i < mapPin.length; i++) {
+  //   mapPin[i].addEventListener('click', function (evt) {
   //     evt.preventDefault();
-  //     createCard(pins[0]);
+  //     if (document.getElementById('card__on')) {
+  //       mapPinMain.disabled = true;
+  //     } else {
+  //       createCard();
+  //     }
   //   });
   // }
-
-  mapPin.forEach(function (el) {
-    el.addEventListener('click', function (evt) {
-      evt.preventDefault();
-      createCard(pins[0]);
-      // if (popupCard.classList.contains('map__card')) {
-      //   mapPin.disabled = true;
-      // } else {
-      //   mapPin.disabled = false;
-      // }
-    });
-  });
 };
 
 var openForm = function (evt) {
