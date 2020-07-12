@@ -177,7 +177,6 @@ var createCard = function (element) {
   var featuresCart = cartElement.querySelector('.popup__features');
   var numberRoom = element.offer.rooms;
   var numberQuests = element.offer.guests;
-  // var featuresItem = element.offer.features;
 
   // Склонение комнат и гостей
 
@@ -291,18 +290,6 @@ var activateForm = function () {
   renderPins(pins);
   addressMap();
   validate();
-  // var mapPin = document.querySelectorAll('.map__pin');
-
-  // for (var i = 1; i < mapPin.length; i++) {
-  //   mapPin[i].addEventListener('click', function (evt) {
-  //     evt.preventDefault();
-  //     if (document.getElementById('card__on')) {
-  //       mapPinMain.disabled = true;
-  //     } else {
-  //       createCard();
-  //     }
-  //   });
-  // }
 };
 
 var openForm = function (evt) {
@@ -365,24 +352,67 @@ capacity.addEventListener('change', function () {
 
 var typeHous = adForm.querySelector('#type');
 var priceHous = adForm.querySelector('#price');
+var priceMinHous = {
+  minBungalo: 0,
+  minFlat: 1000,
+  minHouse: 5000,
+  minPalace: 10000
+};
 
 var typeHousValidate = function () {
-  if (typeHous.value === 'bungalo' && priceHous.value >= '0') {
-    typeHous.setCustomValidity('');
-  } else if (typeHous.value === 'flat' && priceHous.value >= '1000') {
-    typeHous.setCustomValidity('');
-  } else if (typeHous.value === 'house' && priceHous.value >= '5000') {
-    typeHous.setCustomValidity('');
-  } else if (typeHous.value === 'palace' && priceHous.value >= '10000') {
-    typeHous.setCustomValidity('');
-  } else {
-    typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
+  if (typeHous.value === 'bungalo') {
+    priceHous.placeholder = '0';
+    if (priceHous.value >= priceMinHous.minBungalo) {
+      typeHous.setCustomValidity('');
+    } else {
+      typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
+    }
   }
+  if (typeHous.value === 'flat') {
+    priceHous.placeholder = '1000';
+    if (priceHous.value >= priceMinHous.minFlat) {
+      typeHous.setCustomValidity('');
+    } else {
+      typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
+    }
+  }
+  if (typeHous.value === 'house') {
+    priceHous.placeholder = '5000';
+    if (priceHous.value >= priceMinHous.minHouse) {
+      typeHous.setCustomValidity('');
+    } else {
+      typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
+    }
+  }
+  if (typeHous.value === 'palace') {
+    priceHous.placeholder = '10000';
+    if (priceHous.value >= priceMinHous.minPalace) {
+      typeHous.setCustomValidity('');
+    } else {
+      typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
+    }
+  }
+  // if ((typeHous.value === 'bungalo' priceHous.placeholder = '0') && priceHous.value >= priceMinHous.minBungalo) {
+  //   typeHous.setCustomValidity('');
+  // } else if ((typeHous.value === 'flat', priceHous.placeholder = '1000') && priceMinHous.minFlat) {
+  //   priceHous.placeholder = '1000';
+  //   typeHous.setCustomValidity('');
+  // } else if (typeHous.value === 'house' && priceHous.value >= priceMinHous.minHouse) {
+  //   priceHous.placeholder = '5000';
+  //   typeHous.setCustomValidity('');
+  // } else if (typeHous.value === 'palace' && priceHous.value >= priceMinHous.minPalace) {
+  //   priceHous.placeholder = '5000';
+  //   typeHous.setCustomValidity('');
+  // } else {
+  //   typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
+  // }
 };
 
 typeHous.addEventListener('change', function () {
   typeHousValidate();
 });
+
+typeHous.removeEventListener('keydown', openForm);
 
 priceHous.addEventListener('change', function () {
   typeHousValidate();
@@ -392,11 +422,16 @@ var timein = adForm.querySelector('#timein');
 var timeout = adForm.querySelector('#timeout');
 
 var timeValidate = function () {
-  if (timein.value === timeout.value) {
-    timein.setCustomValidity('');
+  if (timein.value === '12:00') {
+    timeout.value = '12:00';
+  } else if (timein.value === '13:00') {
+    timeout.value = '13:00';
   } else {
-    timein.setCustomValidity('Время заезда должно совпадать со временем выезда');
+    timeout.value = '14:00';
   }
+  // } else {
+  //   timein.setCustomValidity('Время заезда должно совпадать со временем выезда');
+  // }
 };
 
 timein.addEventListener('change', function () {
