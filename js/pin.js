@@ -130,25 +130,25 @@
     // Создание карточек
     // var openCart = function () {
     pinElement.addEventListener('click', function () {
-      if (document.getElementById('card__on')) {
-        window.cart.createCard.remove();
-      } else {
-        window.cart.createCard(element);
-        // pinElement.removeEventListener('click', openCart);
-        // pinElement.removeEventListener('keydown', openCart);
+      var popup = document.querySelector('.popup');
+      if (popup) {
+        popup.remove();
       }
+      window.cart.createCard(element);
+      // pinElement.removeEventListener('click', openCart);
+      // pinElement.removeEventListener('keydown', openCart
     });
-    pinElement.addEventListener('keydown', function (evt) {
-      if (evt.key === 'Enter') {
-        if (document.getElementById('card__on')) {
-          window.cart.createCard.remove();
-        } else {
-          window.cart.createCard(element);
-          // pinElement.removeEventListener('click', openCart);
-          // pinElement.removeEventListener('keydown', openCart);
-        }
-      }
-    });
+    // pinElement.addEventListener('keydown', function (evt) {
+    //   if (evt.key === 'Enter') {
+    //     if (document.getElementById('card__on')) {
+    //       window.cart.createCard.remove();
+    //     } else {
+    //       window.cart.createCard(element);
+    //       // pinElement.removeEventListener('click', openCart);
+    //       // pinElement.removeEventListener('keydown', openCart);
+    //     }
+    //   }
+    // });
     // };
     // pinElement.addEventListener('click', openCart);
     // pinElement.addEventListener('keydown', openCart);

@@ -127,22 +127,8 @@
         typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
       }
     }
-    // if ((typeHous.value === 'bungalo' priceHous.placeholder = '0') && priceHous.value >= priceMinHous.minBungalo) {
-    //   typeHous.setCustomValidity('');
-    // } else if ((typeHous.value === 'flat', priceHous.placeholder = '1000') && priceMinHous.minFlat) {
-    //   priceHous.placeholder = '1000';
-    //   typeHous.setCustomValidity('');
-    // } else if (typeHous.value === 'house' && priceHous.value >= priceMinHous.minHouse) {
-    //   priceHous.placeholder = '5000';
-    //   typeHous.setCustomValidity('');
-    // } else if (typeHous.value === 'palace' && priceHous.value >= priceMinHous.minPalace) {
-    //   priceHous.placeholder = '5000';
-    //   typeHous.setCustomValidity('');
-    // } else {
-    //   typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
-    // }
   };
-
+  typeHousValidate();
   typeHous.addEventListener('change', function () {
     typeHousValidate();
   });
@@ -153,10 +139,10 @@
     typeHousValidate();
   });
 
-  var timein = adForm.querySelector('#timein');
-  var timeout = adForm.querySelector('#timeout');
+  var timeInput = adForm.querySelector('#timein');
+  var timeoutInput = adForm.querySelector('#timeout');
 
-  var timeValidate = function () {
+  var timeValidate = function (timein, timeout) {
     if (timein.value === '12:00') {
       timeout.value = '12:00';
     } else if (timein.value === '13:00') {
@@ -169,15 +155,15 @@
     // }
   };
 
-  timein.addEventListener('change', function () {
-    timeValidate();
+  timeInput.addEventListener('change', function () {
+    timeValidate(timeInput, timeoutInput);
   });
 
-  timeout.addEventListener('change', function () {
-    timeValidate();
+  timeoutInput.addEventListener('change', function () {
+    timeValidate(timeoutInput, timeInput);
   });
 
-  window.cart = {
+  window.form = {
     mapPinMain: mapPinMain,
     openForm: openForm
   };

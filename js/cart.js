@@ -89,8 +89,8 @@
       }
       if (evt.key === 'Escape') {
         popupCard.remove();
-        window.cart.mapPinMain.removeEventListener('click', window.form.openForm);
-        window.cart.mapPinMain.removeEventListener('keydown', window.form.openForm);
+        window.form.mapPinMain.removeEventListener('click', window.form.openForm);
+        window.form.mapPinMain.removeEventListener('keydown', window.form.openForm);
       }
     };
 
