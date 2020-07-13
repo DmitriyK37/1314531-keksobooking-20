@@ -166,6 +166,7 @@ var renderPins = function (pinList) {
   pinListElement.appendChild(fragment);
 };
 
+
 var cartTemplate = document.querySelector('#card').content.querySelector('.map__card');
 var mapFilter = document.querySelector('.map__filters-container');
 
@@ -287,6 +288,7 @@ var activateForm = function () {
     el.disabled = false;
   });
 
+
   renderPins(pins);
   addressMap();
   validate();
@@ -297,12 +299,16 @@ var openForm = function (evt) {
   if (evt.which === 1) {
     activateForm();
     mapPinMain.removeEventListener('mousedown', openForm);
+
     mapPinMain.removeEventListener('keydown', openForm);
+
   }
   if (evt.key === 'Enter') {
     activateForm();
     mapPinMain.removeEventListener('keydown', openForm);
+
     mapPinMain.removeEventListener('mousedown', openForm);
+
   }
 };
 
@@ -349,6 +355,7 @@ roomsNumbers.addEventListener('change', function () {
 capacity.addEventListener('change', function () {
   validate();
 });
+
 
 var typeHous = adForm.querySelector('#type');
 var priceHous = adForm.querySelector('#price');
