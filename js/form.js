@@ -12,10 +12,7 @@
     el.disabled = true;
   });
 
-  var mapPinMain = document.querySelector('.map__pin--main');
-
   var activateForm = function () {
-    window.pin.map.classList.remove('map--faded');
     mapFilters.classList.remove('ad-form--disabled');
     adForm.classList.remove('ad-form--disabled');
     fieldsOff.forEach(function (el) {
@@ -23,7 +20,6 @@
     });
 
     window.pin.renderPins(window.pin.pins);
-    addressMap();
     validate();
   };
 
@@ -31,30 +27,30 @@
     evt.preventDefault();
     if (evt.which === 1) {
       activateForm();
-      mapPinMain.removeEventListener('mousedown', openForm);
-      mapPinMain.removeEventListener('keydown', openForm);
+      window.move.mapPinMain.removeEventListener('mouseup', openForm);
+      window.move.mapPinMain.removeEventListener('keydown', openForm);
     }
     if (evt.key === 'Enter') {
       activateForm();
-      mapPinMain.removeEventListener('keydown', openForm);
-      mapPinMain.removeEventListener('mousedown', openForm);
+      window.move.mapPinMain.removeEventListener('keydown', openForm);
+      window.move.mapPinMain.removeEventListener('mouseup', openForm);
     }
   };
 
-  mapPinMain.addEventListener('mousedown', openForm);
+  window.move.mapPinMain.addEventListener('mouseup', openForm);
 
-  mapPinMain.addEventListener('keydown', openForm);
+  window.move.mapPinMain.addEventListener('keydown', openForm);
 
   var inputAddress = document.querySelector('#address');
 
   var addressMap = function () {
-    if (window.pin.map.classList.contains('map--faded')) {
-      inputAddress.value = Math.round(mapPinMain.offsetLeft + window.pin.widthPin / 2) + ', ' + Math.round(mapPinMain.offsetTop + window.pin.heightPin / 2);
+    if (window.move.map.classList.contains('map--faded')) {
+      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.pin.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.pin.heightPin / 2);
     } else {
-      inputAddress.value = Math.round(mapPinMain.offsetLeft + window.pin.widthPin / 2) + ', ' + Math.round(mapPinMain.offsetTop + window.pin.heightPin + 22);
+      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.pin.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.pin.heightPin + 22);
     }
   };
-  addressMap();
+
 
   var roomsNumbers = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
@@ -150,9 +146,6 @@
     } else {
       timeout.value = '14:00';
     }
-    // } else {
-    //   timein.setCustomValidity('Время заезда должно совпадать со временем выезда');
-    // }
   };
 
   timeInput.addEventListener('change', function () {
@@ -164,7 +157,7 @@
   });
 
   window.form = {
-    mapPinMain: mapPinMain,
-    openForm: openForm
+    openForm: openForm,
+    addressMap: addressMap
   };
 })();

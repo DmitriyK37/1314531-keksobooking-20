@@ -77,8 +77,6 @@
     return arr[rand];
   }
 
-  var map = document.querySelector('.map');
-
   var getRandomPin = function () {
     var pin = {
       'author': {
@@ -128,30 +126,22 @@
     pinElement.style.top = (element.location.y - heightPin) + 'px';
 
     // Создание карточек
-    // var openCart = function () {
     pinElement.addEventListener('click', function () {
       var popup = document.querySelector('.popup');
       if (popup) {
         popup.remove();
       }
       window.cart.createCard(element);
-      // pinElement.removeEventListener('click', openCart);
-      // pinElement.removeEventListener('keydown', openCart
     });
-    // pinElement.addEventListener('keydown', function (evt) {
-    //   if (evt.key === 'Enter') {
-    //     if (document.getElementById('card__on')) {
-    //       window.cart.createCard.remove();
-    //     } else {
-    //       window.cart.createCard(element);
-    //       // pinElement.removeEventListener('click', openCart);
-    //       // pinElement.removeEventListener('keydown', openCart);
-    //     }
-    //   }
-    // });
-    // };
-    // pinElement.addEventListener('click', openCart);
-    // pinElement.addEventListener('keydown', openCart);
+    pinElement.addEventListener('keydown', function (evt) {
+      var popup = document.querySelector('.popup');
+      if (evt.key === 'Enter') {
+        if (popup) {
+          popup.remove();
+        }
+        window.cart.createCard(element);
+      }
+    });
 
     return pinElement;
   };
@@ -168,7 +158,6 @@
   };
 
   window.pin = {
-    map: map,
     pins: pins,
     widthPin: widthPin,
     heightPin: heightPin,
