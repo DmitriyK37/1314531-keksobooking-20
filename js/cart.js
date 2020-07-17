@@ -77,20 +77,20 @@
 
     // Закрытие карточки
 
-    var popupCard = document.querySelector('.map__card');
+    // var popupCard = document.querySelector('.map__card');
     var closeCart = document.querySelector('.popup__close');
 
     var closesCart = function (evt) {
       evt.preventDefault();
       if (evt.which === 1) {
-        popupCard.remove();
-        popupCard.removeEventListener('click', closesCart);
-        popupCard.removeEventListener('keydown', closesCart);
+        cartElement.remove();
+        // popupCard.removeEventListener('click', closesCart);
+        // popupCard.removeEventListener('keydown', closesCart);
       }
       if (evt.key === 'Escape') {
-        popupCard.remove();
-        window.maove.mapPinMain.removeEventListener('click', window.form.openForm);
-        window.move.mapPinMain.removeEventListener('keydown', window.form.openForm);
+        cartElement.remove();
+        // window.move.mapPinMain.removeEventListener('click', window.form.openForm);
+        // window.move.mapPinMain.removeEventListener('keydown', window.form.openForm);
       }
     };
 

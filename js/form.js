@@ -38,19 +38,18 @@
   };
 
   window.move.mapPinMain.addEventListener('mouseup', openForm);
-
   window.move.mapPinMain.addEventListener('keydown', openForm);
 
   var inputAddress = document.querySelector('#address');
 
   var addressMap = function () {
     if (window.move.map.classList.contains('map--faded')) {
-      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.pin.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.pin.heightPin / 2);
+      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.const.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.const.heightPin / 2);
     } else {
-      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.pin.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.pin.heightPin + 22);
+      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.const.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.const.heightPin + 22);
     }
   };
-
+  addressMap();
 
   var roomsNumbers = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');

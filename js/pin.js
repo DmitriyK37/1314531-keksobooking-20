@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var widthPin = 65;
-  var heightPin = 65;
 
   var type = [
     'palace',
@@ -63,9 +61,6 @@
   var minX = 40;
   var maxX = 1160;
 
-  var minY = 130;
-  var maxY = 630;
-
   var pinsAmount = 8;
 
   var getRandomNumber = function (min, max) {
@@ -84,7 +79,7 @@
       },
       'offer': {
         'title': getRandomElement(title),
-        'address': getRandomNumber(minX, maxX) + ', ' + getRandomNumber(minY, maxY),
+        'address': getRandomNumber(minX, maxX) + ', ' + getRandomNumber(window.const.minY, window.const.maxY),
         'price': getRandomNumber(priceMin, priceMax),
         'type': getRandomElement(type),
         'rooms': getRandomNumber(roomsMin, roomsMax),
@@ -98,7 +93,7 @@
 
       'location': {
         'x': getRandomNumber(minX, maxX),
-        'y': getRandomNumber(minY, maxY)
+        'y': getRandomNumber(window.const.minY, window.const.maxY)
       }
     };
 
@@ -122,8 +117,8 @@
     var pinPicture = pinElement.querySelector('img');
     pinPicture.src = element.author.avatar;
     pinPicture.alt = element.offer.title;
-    pinElement.style.left = (element.location.x - widthPin / 2) + 'px';
-    pinElement.style.top = (element.location.y - heightPin) + 'px';
+    pinElement.style.left = (element.location.x - window.const.widthPin / 2) + 'px';
+    pinElement.style.top = (element.location.y - window.const.heightPin) + 'px';
 
     // Создание карточек
     pinElement.addEventListener('click', function () {
@@ -159,8 +154,6 @@
 
   window.pin = {
     pins: pins,
-    widthPin: widthPin,
-    heightPin: heightPin,
     features: features,
     photos: photos,
     renderPins: renderPins
