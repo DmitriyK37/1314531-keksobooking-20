@@ -5,8 +5,8 @@
   var limit = {
     limitTop: window.const.minY - window.const.heightPin - 22,
     limitBottom: window.const.maxY - window.const.heightPin - 23,
-    limitRight: map.offsetWidth - window.const.widthPin / 2,
-    limitLeft: 0 - window.const.widthPin / 2
+    limitRight: Math.round(map.offsetWidth - window.const.widthPin / 2 - 2),
+    limitLeft: Math.round(0 - window.const.widthPin / 2 + 1)
   };
 
   mapPinMain.addEventListener('mousedown', function (evt) {
@@ -32,6 +32,10 @@
         y: moveEvt.clientY
       };
 
+      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+      window.form.addressMap();
+
       if ((mapPinMain.offsetTop - shift.y) > limit.limitBottom) {
         mapPinMain.style.top = limit.limitBottom + 'px';
       } else if ((mapPinMain.offsetTop - shift.y) < limit.limitTop) {
@@ -42,10 +46,6 @@
       } else if ((mapPinMain.offsetLeft - shift.x) < limit.limitLeft) {
         mapPinMain.style.left = limit.limitLeft + 'px';
       }
-
-      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
-      window.form.addressMap();
     };
 
     var onMouseUp = function (upEvt) {
