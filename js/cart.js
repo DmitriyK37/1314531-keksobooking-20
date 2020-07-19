@@ -53,33 +53,47 @@
     };
 
     // Создание списка фотографий
+    var pinsPicture = cartElement.querySelector('.popup__photos');
+    var photoWidth = 45;
+    var photoHeigt = 50;
+    var createPhoto = function (photos) {
+      for (var i = 0; i < photos.length; i++) {
+        var renderPictures = document.createElement('img');
+        renderPictures.classList.add('popup__photo');
+        pinsPicture.append(renderPictures);
+        renderPictures.src = photos[i];
+        renderPictures.width = photoWidth;
+        renderPictures.height = photoHeigt;
+      }
+    };
+
     // var renderPictures = function (pictures) {
     //   var pinPicture = cartElement.querySelector('.popup__photo');
     //   var pinsPicture = cartElement.querySelector('.popup__photos');
 
     //   for (var i = 0; i < pictures.length; i++) {
-    //     var renderPhotos = document.createElement('img');
+    //     var renderPhotos = pinPicture.cloneNode(true);
     //     pinPicture.src = pictures[i];
     //     pinsPicture.appendChild(renderPhotos);
     //   }
     // };
+    // var picturesContainer = cartElement.querySelector('.popup__photos');
+    // var renderPictures = function (pictures) {
 
-    var renderPictures = function (pictures) {
-      var picturesContainer = cartElement.querySelector('.popup__photos');
-      picturesContainer.removeChild(picturesContainer.querySelector('.popup__photo'));
-      var POPUP_PHOTO_WIDTH = 45;
-      var POPUP_PHOTO_HEIGHT = 50;
+    // picturesContainer.removeChild(picturesContainer.querySelector('.popup__photo'));
+    // var POPUP_PHOTO_WIDTH = 45;
+    // var POPUP_PHOTO_HEIGHT = 50;
 
-      for (var i = 0; i < pictures.length; i++) {
-        var picture = document.createElement('img');
-        picture.classList.add('popup__photo');
-        picture.width = POPUP_PHOTO_WIDTH;
-        picture.height = POPUP_PHOTO_HEIGHT;
-        picture.src = pictures[i];
-        picture.alt = 'Фотография жилья';
-        picturesContainer.appendChild(picture);
-      }
-    };
+    // for (var i = 0; i < pictures.length; i++) {
+    //   var picture = document.createElement('img');
+    //   picture.classList.add('popup__photo');
+    //   picture.width = POPUP_PHOTO_WIDTH;
+    //   picture.height = POPUP_PHOTO_HEIGHT;
+    //   picture.src = pictures[i];
+    //   picture.alt = 'Фотография жилья';
+    //   picturesContainer.appendChild(picture);
+    // }
+    // };
 
     if (element.offer.type === 'palace') {
       element.offer.type = 'Дворец';
@@ -101,7 +115,8 @@
     cartElement.querySelector('.popup__description').textContent = element.offer.description;
     featuresCart.innerHTML = '';
     createFeatures(element.offer.features);
-    renderPictures(element.offer.photos);
+    pinsPicture.innerHTML = '';
+    createPhoto(element.offer.photos);
     window.move.map.insertBefore(cartElement, mapFilter);
 
     // Закрытие карточки

@@ -15,14 +15,14 @@
   //   '14:00'
   // ];
 
-  var features = [
-    'wifi',
-    'dishwasher',
-    'parking',
-    'washer',
-    'elevator',
-    'conditioner'
-  ];
+  // var features = [
+  //   'wifi',
+  //   'dishwasher',
+  //   'parking',
+  //   'washer',
+  //   'elevator',
+  //   'conditioner'
+  // ];
 
   // var title = [
   //   'Дворец',
@@ -40,11 +40,11 @@
   //   'близость к транспортной развязке'
   // ];
 
-  var photos = [
-    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-    'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-  ];
+  // var photos = [
+  //   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  //   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  //   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
+  // ];
 
   // var avatarMin = 1;
   // var avatarMax = 8;
@@ -154,8 +154,8 @@
 
   window.pin = {
     // pins: pins,
-    features: features,
-    photos: photos,
+    // features: features,
+    // photos: photos,
     renderPins: renderPins
   };
 })();
