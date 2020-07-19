@@ -19,7 +19,7 @@
       el.disabled = false;
     });
 
-    window.pin.renderPins(window.pin.pins);
+    window.backend.load(window.pin.renderPins);
     validate();
   };
 

@@ -7,8 +7,6 @@
   var createCard = function (element) {
     var cartElement = cartTemplate.cloneNode(true);
     var pinAvatar = cartElement.querySelector('.popup__avatar');
-    var pinsPicture = cartElement.querySelector('.popup__photos');
-    var pinPicture = cartElement.querySelector('.popup__photo');
     var featuresCart = cartElement.querySelector('.popup__features');
     var numberRoom = element.offer.rooms;
     var numberQuests = element.offer.guests;
@@ -46,21 +44,51 @@
 
     // Создание списка преимуществ
 
-    var createFeatures = function () {
-      for (var a = 0; a < window.pin.features.length; a++) {
+    var createFeatures = function (features) {
+      for (var a = 0; a < features.length; a++) {
         var renderFeatures = document.createElement('li');
-        renderFeatures.classList.add('popup__feature', 'popup__feature--' + window.pin.features[a]);
+        renderFeatures.classList.add('popup__feature', 'popup__feature--' + features[a]);
         featuresCart.append(renderFeatures);
       }
     };
 
     // Создание списка фотографий
+    // var renderPictures = function (pictures) {
+    //   var pinPicture = cartElement.querySelector('.popup__photo');
+    //   var pinsPicture = cartElement.querySelector('.popup__photos');
 
-    pinPicture.src = element.offer.photos;
-    for (var i = 0; i < window.pin.photos.length; i++) {
-      var renderPhotos = pinPicture.cloneNode(true);
-      pinPicture.src = window.pin.photos[i];
-      pinsPicture.appendChild(renderPhotos);
+    //   for (var i = 0; i < pictures.length; i++) {
+    //     var renderPhotos = document.createElement('img');
+    //     pinPicture.src = pictures[i];
+    //     pinsPicture.appendChild(renderPhotos);
+    //   }
+    // };
+
+    var renderPictures = function (pictures) {
+      var picturesContainer = cartElement.querySelector('.popup__photos');
+      picturesContainer.removeChild(picturesContainer.querySelector('.popup__photo'));
+      var POPUP_PHOTO_WIDTH = 45;
+      var POPUP_PHOTO_HEIGHT = 50;
+
+      for (var i = 0; i < pictures.length; i++) {
+        var picture = document.createElement('img');
+        picture.classList.add('popup__photo');
+        picture.width = POPUP_PHOTO_WIDTH;
+        picture.height = POPUP_PHOTO_HEIGHT;
+        picture.src = pictures[i];
+        picture.alt = 'Фотография жилья';
+        picturesContainer.appendChild(picture);
+      }
+    };
+
+    if (element.offer.type === 'palace') {
+      element.offer.type = 'Дворец';
+    } else if (element.offer.type === 'flat') {
+      element.offer.type = 'Квартира';
+    } else if (element.offer.type === 'house') {
+      element.offer.type = 'Дом';
+    } else if (element.offer.type === 'bungalo') {
+      element.offer.type = 'Бунгало';
     }
 
     pinAvatar.src = element.author.avatar;
@@ -72,7 +100,8 @@
     cartElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ',' + ' выезд до ' + element.offer.checkout;
     cartElement.querySelector('.popup__description').textContent = element.offer.description;
     featuresCart.innerHTML = '';
-    createFeatures();
+    createFeatures(element.offer.features);
+    renderPictures(element.offer.photos);
     window.move.map.insertBefore(cartElement, mapFilter);
 
     // Закрытие карточки
