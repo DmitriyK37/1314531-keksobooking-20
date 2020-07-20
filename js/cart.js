@@ -54,8 +54,8 @@
 
     // Создание списка фотографий
     var pinsPicture = cartElement.querySelector('.popup__photos');
-    var photoWidth = 45;
-    var photoHeigt = 50;
+    var PHOTO_WIDTH = 45;
+    var PHOTO_HEIGT = 50;
     var createPhoto = function (photos) {
       for (var i = 0; i < photos.length; i++) {
         var renderPictures = document.createElement('img');
@@ -63,38 +63,10 @@
         pinsPicture.append(renderPictures);
         renderPictures.src = photos[i];
         renderPictures.alt = 'Фотография жилья';
-        renderPictures.width = photoWidth;
-        renderPictures.height = photoHeigt;
+        renderPictures.width = PHOTO_WIDTH;
+        renderPictures.height = PHOTO_HEIGT;
       }
     };
-
-    // var renderPictures = function (pictures) {
-    //   var pinPicture = cartElement.querySelector('.popup__photo');
-    //   var pinsPicture = cartElement.querySelector('.popup__photos');
-
-    //   for (var i = 0; i < pictures.length; i++) {
-    //     var renderPhotos = pinPicture.cloneNode(true);
-    //     pinPicture.src = pictures[i];
-    //     pinsPicture.appendChild(renderPhotos);
-    //   }
-    // };
-    // var picturesContainer = cartElement.querySelector('.popup__photos');
-    // var renderPictures = function (pictures) {
-
-    // picturesContainer.removeChild(picturesContainer.querySelector('.popup__photo'));
-    // var POPUP_PHOTO_WIDTH = 45;
-    // var POPUP_PHOTO_HEIGHT = 50;
-
-    // for (var i = 0; i < pictures.length; i++) {
-    //   var picture = document.createElement('img');
-    //   picture.classList.add('popup__photo');
-    //   picture.width = POPUP_PHOTO_WIDTH;
-    //   picture.height = POPUP_PHOTO_HEIGHT;
-    //   picture.src = pictures[i];
-    //   picture.alt = 'Фотография жилья';
-    //   picturesContainer.appendChild(picture);
-    // }
-    // };
 
     if (element.offer.type === 'palace') {
       element.offer.type = 'Дворец';

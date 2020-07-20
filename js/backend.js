@@ -5,17 +5,29 @@
   var StatusCode = {
     OK: 200
   };
+  var TIMEOUT_IN_MS = 10000;
 
-  var load = function (onSuccess) {
+  var load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    xhr.open('GET', URL);
-
     xhr.addEventListener('load', function () {
-      onSuccess(xhr.response);
+      if (xhr.status === StatusCode.OK) {
+        onSuccess(xhr.response);
+      } else {
+        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
+    });
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
+    xhr.addEventListener('timeout', function () {
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
+    xhr.timeout = TIMEOUT_IN_MS;
+
+    xhr.open('GET', URL);
     xhr.send();
   };
 
@@ -30,7 +42,7 @@
     var closeSuccess = function (evt) {
       evt.preventDefault();
       if (evt.which === 1) {
-        close.classList.add('hidden');
+        close.remove();
       }
       if (evt.key === 'Escape') {
         close.classList.add('hidden');
@@ -55,7 +67,7 @@
         error.classList.add('hidden');
       }
       if (evt.key === 'Escape') {
-        error.classList.add('hidden');
+        error.remove();
       }
       window.removeEventListener('click', closeError);
       window.removeEventListener('keydown', closeError);

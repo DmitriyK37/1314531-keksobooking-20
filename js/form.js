@@ -26,8 +26,8 @@
     evt.preventDefault();
     if (evt.which === 1) {
       activateForm();
-      // window.move.mapPinMain.removeEventListener('mouseup', openForm);
-      // window.move.mapPinMain.removeEventListener('keydown', openForm);
+      window.move.mapPinMain.removeEventListener('mouseup', openForm);
+      window.move.mapPinMain.removeEventListener('keydown', openForm);
     }
     if (evt.key === 'Enter') {
       activateForm();
@@ -157,11 +157,14 @@
   // Отправка формы
   var deactivateForm = function () {
     window.move.map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
     adForm.reset();
     window.pin.removePins();
     fieldsOff.forEach(function (el) {
       el.disabled = true;
     });
+    window.move.mapPinMain.addEventListener('mouseup', openForm);
+    window.move.mapPinMain.addEventListener('keydown', openForm);
   };
 
   var onSubmit = function (evt) {
