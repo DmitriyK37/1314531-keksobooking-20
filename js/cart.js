@@ -122,7 +122,6 @@
 
     // Закрытие карточки
 
-    // var popupCard = document.querySelector('.map__card');
     var closeCart = document.querySelector('.popup__close');
 
     var closesCart = function (evt) {
