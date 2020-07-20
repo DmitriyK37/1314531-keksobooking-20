@@ -62,6 +62,7 @@
         renderPictures.classList.add('popup__photo');
         pinsPicture.append(renderPictures);
         renderPictures.src = photos[i];
+        renderPictures.alt = 'Фотография жилья';
         renderPictures.width = photoWidth;
         renderPictures.height = photoHeigt;
       }
