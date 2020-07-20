@@ -45,7 +45,7 @@
         close.remove();
       }
       if (evt.key === 'Escape') {
-        close.classList.add('hidden');
+        close.remove();
       }
       window.removeEventListener('click', closeSuccess);
       window.removeEventListener('keydown', closeSuccess);
@@ -64,7 +64,7 @@
     var closeError = function (evt) {
       evt.preventDefault();
       if (evt.which === 1) {
-        error.classList.add('hidden');
+        error.remove();
       }
       if (evt.key === 'Escape') {
         error.remove();
