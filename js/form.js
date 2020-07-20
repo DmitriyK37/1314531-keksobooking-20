@@ -18,7 +18,6 @@
     fieldsOff.forEach(function (el) {
       el.disabled = false;
     });
-
     window.backend.load(window.pin.renderPins);
     validate();
   };
@@ -27,8 +26,8 @@
     evt.preventDefault();
     if (evt.which === 1) {
       activateForm();
-      window.move.mapPinMain.removeEventListener('mouseup', openForm);
-      window.move.mapPinMain.removeEventListener('keydown', openForm);
+      // window.move.mapPinMain.removeEventListener('mouseup', openForm);
+      // window.move.mapPinMain.removeEventListener('keydown', openForm);
     }
     if (evt.key === 'Enter') {
       activateForm();
@@ -155,7 +154,25 @@
     timeValidate(timeoutInput, timeInput);
   });
 
+  // Отправка формы
+  var deactivateForm = function () {
+    window.move.map.classList.add('map--faded');
+    adForm.reset();
+    window.pin.removePins();
+    fieldsOff.forEach(function (el) {
+      el.disabled = true;
+    });
+  };
+
+  var onSubmit = function (evt) {
+    window.backend.upload(new FormData(adForm));
+    deactivateForm();
+    evt.preventDefault();
+  };
+  adForm.addEventListener('submit', onSubmit);
+
   window.form = {
+    activateForm: activateForm,
     openForm: openForm,
     addressMap: addressMap
   };

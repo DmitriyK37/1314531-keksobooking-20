@@ -152,10 +152,23 @@
     pinListElement.appendChild(fragment);
   };
 
+  var removePins = function () {
+    var pins = window.move.map.querySelectorAll('.map__pin:not(.map__pin--main)');
+    pins.forEach(function (el) {
+      el.remove();
+    });
+    window.move.mapPinMain.setAttribute('style', 'left: 570px; top: 375px;');
+    var popup = document.querySelector('.popup');
+    if (popup) {
+      popup.remove();
+    }
+  };
+
   window.pin = {
     // pins: pins,
     // features: features,
     // photos: photos,
-    renderPins: renderPins
+    renderPins: renderPins,
+    removePins: removePins
   };
 })();
