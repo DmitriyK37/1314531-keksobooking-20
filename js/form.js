@@ -18,7 +18,6 @@
     fieldsOff.forEach(function (el) {
       el.disabled = false;
     });
-
     window.backend.load(window.pin.renderPins);
     validate();
   };
@@ -155,7 +154,28 @@
     timeValidate(timeoutInput, timeInput);
   });
 
+  // Отправка формы
+  var deactivateForm = function () {
+    window.move.map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    adForm.reset();
+    window.pin.removePins();
+    fieldsOff.forEach(function (el) {
+      el.disabled = true;
+    });
+    window.move.mapPinMain.addEventListener('mouseup', openForm);
+    window.move.mapPinMain.addEventListener('keydown', openForm);
+  };
+
+  var onSubmit = function (evt) {
+    window.backend.upload(new FormData(adForm));
+    deactivateForm();
+    evt.preventDefault();
+  };
+  adForm.addEventListener('submit', onSubmit);
+
   window.form = {
+    activateForm: activateForm,
     openForm: openForm,
     addressMap: addressMap
   };
