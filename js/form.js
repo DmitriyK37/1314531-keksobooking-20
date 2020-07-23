@@ -45,9 +45,9 @@
 
   var addressMap = function () {
     if (window.move.map.classList.contains('map--faded')) {
-      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.const.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.const.heightPin / 2);
+      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.const.WIDTH_PIN / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.const.HEIGHT_PIN / 2);
     } else {
-      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.const.widthPin / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.const.heightPin + 22);
+      inputAddress.value = Math.round(window.move.mapPinMain.offsetLeft + window.const.WIDTH_PIN / 2) + ', ' + Math.round(window.move.mapPinMain.offsetTop + window.const.HEIGHT_PIN + 22);
     }
   };
   addressMap();

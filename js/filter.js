@@ -66,8 +66,8 @@
     }
     return resultArray;
   };
-  housingFilters.addEventListener('change', function () {
+  housingFilters.addEventListener('change', window.debounce(function () {
     window.pin.removePins();
     window.pin.renderPins(filter());
-  });
+  }));
 })();

@@ -10,8 +10,8 @@
     var pinPicture = pinElement.querySelector('img');
     pinPicture.src = element.author.avatar;
     pinPicture.alt = element.offer.title;
-    pinElement.style.left = (element.location.x - window.const.widthPin / 2) + 'px';
-    pinElement.style.top = (element.location.y - window.const.heightPin) + 'px';
+    pinElement.style.left = (element.location.x - window.const.WIDTH_PIN / 2) + 'px';
+    pinElement.style.top = (element.location.y - window.const.HEIGHT_PIN) + 'px';
 
     // Создание карточек
     pinElement.addEventListener('click', function () {
@@ -36,7 +36,7 @@
 
   var renderPins = function (pinList) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < pinList.length; i++) { // Math.min(5,pinList.length)pinList.length
+    for (var i = 0; i < pinList.length; i++) {
       fragment.appendChild(createPin(pinList[i]));
     }
     pinListElement.appendChild(fragment);

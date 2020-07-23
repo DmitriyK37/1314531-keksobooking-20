@@ -15,16 +15,13 @@
       if (xhr.status === StatusCode.OK) {
         onSuccess(xhr.response);
       } else {
-        // onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-        formError();
+        formError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
-      // onError('Произошла ошибка соединения');
-      formError();
+      formError('Произошла ошибка соединения');
     });
     xhr.addEventListener('timeout', function () {
-      // onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
       formError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 

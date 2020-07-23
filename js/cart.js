@@ -100,13 +100,9 @@
       evt.preventDefault();
       if (evt.which === 1) {
         cartElement.remove();
-        // popupCard.removeEventListener('click', closesCart);
-        // popupCard.removeEventListener('keydown', closesCart);
       }
       if (evt.key === 'Escape') {
         cartElement.remove();
-        // window.move.mapPinMain.removeEventListener('click', window.form.openForm);
-        // window.move.mapPinMain.removeEventListener('keydown', window.form.openForm);
       }
     };
 
