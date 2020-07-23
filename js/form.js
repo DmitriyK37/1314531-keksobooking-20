@@ -5,7 +5,6 @@
   var mapFilters = document.querySelector('.map__filters');
   var fieldsOff = adForm.querySelectorAll('fieldset');
 
-
   mapFilters.classList.add('ad-form--disabled');
 
   fieldsOff.forEach(function (el) {
@@ -18,7 +17,10 @@
     fieldsOff.forEach(function (el) {
       el.disabled = false;
     });
-    window.backend.load(window.pin.renderPins);
+    window.backend.load(function (data) {
+      window.form.offersArray = data;
+      window.pin.renderPins(data.slice(0, 5));
+    });
     validate();
   };
 
@@ -177,6 +179,6 @@
   window.form = {
     activateForm: activateForm,
     openForm: openForm,
-    addressMap: addressMap
+    addressMap: addressMap,
   };
 })();

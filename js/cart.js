@@ -115,6 +115,6 @@
   };
 
   window.cart = {
-    createCard: createCard
+    createCard: createCard,
   };
 })();

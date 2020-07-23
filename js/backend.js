@@ -7,7 +7,7 @@
   };
   var TIMEOUT_IN_MS = 10000;
 
-  var load = function (onSuccess, onError) {
+  var load = function (onSuccess) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -15,14 +15,17 @@
       if (xhr.status === StatusCode.OK) {
         onSuccess(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        // onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        formError();
       }
     });
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+      // onError('Произошла ошибка соединения');
+      formError();
     });
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      // onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      formError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
     xhr.timeout = TIMEOUT_IN_MS;
@@ -54,12 +57,17 @@
     window.addEventListener('keydown', closeSuccess);
   };
 
-  var formError = function () {
+  var formError = function (message) {
     var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorMessage = errorMessageTemplate.cloneNode(true);
     document.querySelector('main').appendChild(errorMessage);
     var error = document.querySelector('.error');
     var errorButton = errorMessage.querySelector('.error__button');
+    var errorTextElement = errorMessage.querySelector('.error__message');
+
+    if (message) {
+      errorTextElement.textContent = message;
+    }
 
     var closeError = function (evt) {
       evt.preventDefault();

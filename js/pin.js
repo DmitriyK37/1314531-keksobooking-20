@@ -36,8 +36,7 @@
 
   var renderPins = function (pinList) {
     var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < pinList.length; i++) {
+    for (var i = 0; i < pinList.length; i++) { // Math.min(5,pinList.length)pinList.length
       fragment.appendChild(createPin(pinList[i]));
     }
     pinListElement.appendChild(fragment);
@@ -56,6 +55,7 @@
   };
 
   window.pin = {
+    createPin: createPin,
     renderPins: renderPins,
     removePins: removePins
   };
