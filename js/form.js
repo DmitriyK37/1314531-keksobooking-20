@@ -4,6 +4,7 @@
   var adForm = document.querySelector('.ad-form');
   var mapFilters = document.querySelector('.map__filters');
   var fieldsOff = adForm.querySelectorAll('fieldset');
+  var formReset = adForm.querySelector('.ad-form__reset');
 
   mapFilters.classList.add('ad-form--disabled');
 
@@ -161,7 +162,10 @@
     window.move.map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     adForm.reset();
+    window.preview.removeImage();
+    window.preview.removeAvatar();
     window.pin.removePins();
+    window.filter.housingFilters.reset();
     fieldsOff.forEach(function (el) {
       el.disabled = true;
     });
@@ -174,7 +178,13 @@
     deactivateForm();
     evt.preventDefault();
   };
+
   adForm.addEventListener('submit', onSubmit);
+
+  formReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    deactivateForm();
+  });
 
   window.form = {
     activateForm: activateForm,

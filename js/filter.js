@@ -70,4 +70,8 @@
     window.pin.removePins();
     window.pin.renderPins(filter());
   }));
+
+  window.filter = {
+    housingFilters: housingFilters
+  };
 })();

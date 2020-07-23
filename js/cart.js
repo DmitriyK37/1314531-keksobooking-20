@@ -100,9 +100,11 @@
       evt.preventDefault();
       if (evt.which === 1) {
         cartElement.remove();
+        window.pin.inactivePin();
       }
       if (evt.key === 'Escape') {
         cartElement.remove();
+        window.pin.inactivePin();
       }
     };
 
