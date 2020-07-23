@@ -3,8 +3,8 @@
   var map = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');
   var limit = {
-    limitTop: window.const.minY - window.const.heightPin - 22,
-    limitBottom: window.const.maxY - window.const.heightPin - 23,
+    limitTop: window.const.MIN_Y - window.const.heightPin - 22,
+    limitBottom: window.const.MAX_Y - window.const.heightPin - 23,
     limitRight: Math.round(map.offsetWidth - window.const.widthPin / 2 - 2),
     limitLeft: Math.round(0 - window.const.widthPin / 2 + 1)
   };
