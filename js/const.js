@@ -34,6 +34,8 @@
   var LOW = 'low';
   var HIGH = 'high';
 
+  var DEBOUNCE_INTERVAL = 500;
+
   window.const = {
     MAX_PIN_MAP: MAX_PIN_MAP,
     MIN_Y: MIN_Y,
@@ -58,6 +60,7 @@
     PLACEHOLDER_PALACE: PLACEHOLDER_PALACE,
     MIDDLE: MIDDLE,
     LOW: LOW,
-    HIGH: HIGH
+    HIGH: HIGH,
+    DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL
   };
 })();
