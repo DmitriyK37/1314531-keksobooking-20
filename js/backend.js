@@ -44,14 +44,14 @@
       if (evt.which === 1) {
         close.remove();
       }
-      if (evt.key === 'Escape') {
+      if (evt.key === window.const.ESCAPE) {
         close.remove();
       }
-      window.removeEventListener('click', closeSuccess);
-      window.removeEventListener('keydown', closeSuccess);
+      close.removeEventListener('click', closeSuccess);
+      close.removeEventListener('keydown', closeSuccess);
     };
-    window.addEventListener('click', closeSuccess);
-    window.addEventListener('keydown', closeSuccess);
+    close.addEventListener('click', closeSuccess);
+    close.addEventListener('keydown', closeSuccess);
   };
 
   var formError = function (message) {
@@ -71,7 +71,7 @@
       if (evt.which === 1) {
         error.remove();
       }
-      if (evt.key === 'Escape') {
+      if (evt.key === window.const.ESCAPE) {
         error.remove();
       }
       window.removeEventListener('click', closeError);

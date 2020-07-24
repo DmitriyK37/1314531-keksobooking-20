@@ -3,6 +3,9 @@
 
   var MAX_PIN_MAP = 5;
 
+  var ENTER = 'Enter';
+  var ESCAPE = 'Escape';
+
   var MIN_Y = 130;
   var MAX_Y = 630;
 
@@ -38,6 +41,8 @@
 
   window.const = {
     MAX_PIN_MAP: MAX_PIN_MAP,
+    ENTER: ENTER,
+    ESCAPE: ESCAPE,
     MIN_Y: MIN_Y,
     MAX_Y: MAX_Y,
     WIDTH_PIN: WIDTH_PIN,

@@ -26,7 +26,7 @@
     pinElement.addEventListener('keydown', function (evt) {
 
       var popup = document.querySelector('.popup');
-      if (evt.key === 'Enter') {
+      if (evt.key === window.const.ENTER) {
         if (popup) {
           popup.remove();
         }
@@ -41,9 +41,12 @@
 
   var renderPins = function (pinList) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < pinList.length; i++) {
-      fragment.appendChild(createPin(pinList[i]));
-    }
+    // for (var i = 0; i < pinList.length; i++) {
+    //   fragment.appendChild(createPin(pinList[i]));
+    // }
+    pinList.forEach(function (element) {
+      fragment.appendChild(createPin(element));
+    });
     pinListElement.appendChild(fragment);
   };
 

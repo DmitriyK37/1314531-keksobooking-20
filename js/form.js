@@ -39,7 +39,7 @@
       window.move.mapPinMain.removeEventListener('mouseup', openForm);
       window.move.mapPinMain.removeEventListener('keydown', openForm);
     }
-    if (evt.key === 'Enter') {
+    if (evt.key === window.const.ENTER) {
       activateForm();
       window.move.mapPinMain.removeEventListener('keydown', openForm);
       window.move.mapPinMain.removeEventListener('mouseup', openForm);

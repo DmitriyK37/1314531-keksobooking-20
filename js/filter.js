@@ -11,7 +11,7 @@
     var offers = window.form.offersArray;
     var resultArray = [];
     var checkHousingType = function (offer) {
-      if (!(housingType.value === window.const.ANY)) {
+      if (housingType.value !== window.const.ANY) {
         return housingType.value === offer.offer.type;
       }
       return offer;

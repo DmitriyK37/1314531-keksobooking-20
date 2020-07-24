@@ -59,6 +59,14 @@
     map.addEventListener('mouseup', onMouseUp);
   });
 
+  mapPinMain.addEventListener('keydown', function (evt) {
+    if (evt.key === window.const.ENTER) {
+      evt.preventDefault();
+      map.classList.remove('map--faded');
+      window.form.addressMap();
+    }
+  });
+
   window.move = {
     map: map,
     mapPinMain: mapPinMain
