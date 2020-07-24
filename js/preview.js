@@ -13,8 +13,8 @@
     var avatar = avatarChooser.files[0];
     var avatarName = avatar.name.toLowerCase();
 
-    var matches = FILE_TYPES.some(function (it) {
-      return avatarName.endsWith(it);
+    var matches = FILE_TYPES.some(function (item) {
+      return avatarName.endsWith(item);
     });
 
     if (matches) {
@@ -37,8 +37,8 @@
     imagePreview.style.height = '100%';
     imagePreview.style.alt = 'Фотография жилья';
     imagePreviewContainer.appendChild(imagePreview);
-    var matches = FILE_TYPES.some(function (it) {
-      return imageName.endsWith(it);
+    var matches = FILE_TYPES.some(function (item) {
+      return imageName.endsWith(item);
     });
     if (matches) {
       var reader = new FileReader();

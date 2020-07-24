@@ -49,14 +49,17 @@
 
   var removePins = function () {
     var pins = window.move.map.querySelectorAll('.map__pin:not(.map__pin--main)');
-    pins.forEach(function (el) {
-      el.remove();
+    pins.forEach(function (element) {
+      element.remove();
     });
-    window.move.mapPinMain.setAttribute('style', 'left: 570px; top: 375px;');
     var popup = document.querySelector('.popup');
     if (popup) {
       popup.remove();
     }
+  };
+
+  var stayMainPin = function () {
+    window.move.mapPinMain.setAttribute('style', 'left: 570px; top: 375px;');
   };
 
   var inactivePin = function () {
@@ -74,6 +77,7 @@
     createPin: createPin,
     renderPins: renderPins,
     removePins: removePins,
+    stayMainPin: stayMainPin,
     inactivePin: inactivePin,
     activatePin: activatePin
   };

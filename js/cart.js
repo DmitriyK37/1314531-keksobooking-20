@@ -3,6 +3,8 @@
 (function () {
   var cartTemplate = document.querySelector('#card').content.querySelector('.map__card');
   var mapFilter = document.querySelector('.map__filters-container');
+  var PHOTO_WIDTH = 45;
+  var PHOTO_HEIGT = 50;
 
   var createCard = function (element) {
     var cartElement = cartTemplate.cloneNode(true);
@@ -54,8 +56,6 @@
 
     // Создание списка фотографий
     var pinsPicture = cartElement.querySelector('.popup__photos');
-    var PHOTO_WIDTH = 45;
-    var PHOTO_HEIGT = 50;
     var createPhoto = function (photos) {
       for (var i = 0; i < photos.length; i++) {
         var renderPictures = document.createElement('img');
@@ -68,13 +68,13 @@
       }
     };
 
-    if (element.offer.type === 'palace') {
+    if (element.offer.type === window.const.PALACE) {
       element.offer.type = 'Дворец';
-    } else if (element.offer.type === 'flat') {
+    } else if (element.offer.type === window.const.FLAT) {
       element.offer.type = 'Квартира';
-    } else if (element.offer.type === 'house') {
+    } else if (element.offer.type === window.const.HOUSE) {
       element.offer.type = 'Дом';
-    } else if (element.offer.type === 'bungalo') {
+    } else if (element.offer.type === window.const.BUNGALO) {
       element.offer.type = 'Бунгало';
     }
 
@@ -106,6 +106,7 @@
         cartElement.remove();
         window.pin.inactivePin();
       }
+      window.move.map.removeEventListener('keydown', closesCart);
     };
 
     closeCart.addEventListener('click', closesCart);

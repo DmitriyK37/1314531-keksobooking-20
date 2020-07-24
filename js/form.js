@@ -8,19 +8,26 @@
 
   mapFilters.classList.add('ad-form--disabled');
 
-  fieldsOff.forEach(function (el) {
-    el.disabled = true;
-  });
+  var fieldsetOff = function () {
+    fieldsOff.forEach(function (element) {
+      element.disabled = true;
+    });
+  };
+  fieldsetOff();
+
+  var fieldsetOn = function () {
+    fieldsOff.forEach(function (element) {
+      element.disabled = false;
+    });
+  };
 
   var activateForm = function () {
     mapFilters.classList.remove('ad-form--disabled');
     adForm.classList.remove('ad-form--disabled');
-    fieldsOff.forEach(function (el) {
-      el.disabled = false;
-    });
+    fieldsetOn();
     window.backend.load(function (data) {
       window.form.offersArray = data;
-      window.pin.renderPins(data.slice(0, 5));
+      window.pin.renderPins(data.slice(0, window.const.MAX_PIN_MAP));
     });
     validate();
   };
@@ -57,14 +64,14 @@
   var capacity = adForm.querySelector('#capacity');
 
   var validate = function () {
-    if (roomsNumbers.value === '100') {
-      if (capacity.value !== '0') {
+    if (roomsNumbers.value === window.const.ROOMS_MAX) {
+      if (capacity.value !== window.const.ROOMS_MIN) {
         roomsNumbers.setCustomValidity('Выберите другое значение');
       } else {
         roomsNumbers.setCustomValidity('');
       }
     } else {
-      if (capacity.value === '0') {
+      if (capacity.value === window.const.ROOMS_MIN) {
         roomsNumbers.setCustomValidity('Выберите другое значение');
       } else if (roomsNumbers.value >= capacity.value) {
         roomsNumbers.setCustomValidity('');
@@ -92,32 +99,32 @@
   };
 
   var typeHousValidate = function () {
-    if (typeHous.value === 'bungalo') {
-      priceHous.placeholder = '0';
+    if (typeHous.value === window.const.BUNGALO) {
+      priceHous.placeholder = window.const.PLACEHOLDER_BUNGALO;
       if (priceHous.value >= priceMinHous.minBungalo) {
         typeHous.setCustomValidity('');
       } else {
         typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
       }
     }
-    if (typeHous.value === 'flat') {
-      priceHous.placeholder = '1000';
+    if (typeHous.value === window.const.FLAT) {
+      priceHous.placeholder = window.const.PLACEHOLDER_FLAT;
       if (priceHous.value >= priceMinHous.minFlat) {
         typeHous.setCustomValidity('');
       } else {
         typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
       }
     }
-    if (typeHous.value === 'house') {
-      priceHous.placeholder = '5000';
+    if (typeHous.value === window.const.HOUSE) {
+      priceHous.placeholder = window.const.PLACEHOLDER_HOUSE;
       if (priceHous.value >= priceMinHous.minHouse) {
         typeHous.setCustomValidity('');
       } else {
         typeHous.setCustomValidity('Цена за ночь не соответствует минимальной');
       }
     }
-    if (typeHous.value === 'palace') {
-      priceHous.placeholder = '10000';
+    if (typeHous.value === window.const.PALACE) {
+      priceHous.placeholder = window.const.PLACEHOLDER_PALACE;
       if (priceHous.value >= priceMinHous.minPalace) {
         typeHous.setCustomValidity('');
       } else {
@@ -140,12 +147,12 @@
   var timeoutInput = adForm.querySelector('#timeout');
 
   var timeValidate = function (timein, timeout) {
-    if (timein.value === '12:00') {
-      timeout.value = '12:00';
-    } else if (timein.value === '13:00') {
-      timeout.value = '13:00';
+    if (timein.value === window.const.TWELVE_CLOCK) {
+      timeout.value = window.const.TWELVE_CLOCK;
+    } else if (timein.value === window.const.ONE_CLOCK) {
+      timeout.value = window.const.ONE_CLOCK;
     } else {
-      timeout.value = '14:00';
+      timeout.value = window.const.TWO_CLOCK;
     }
   };
 
@@ -165,10 +172,9 @@
     window.preview.removeImage();
     window.preview.removeAvatar();
     window.pin.removePins();
+    window.pin.stayMainPin();
     window.filter.housingFilters.reset();
-    fieldsOff.forEach(function (el) {
-      el.disabled = true;
-    });
+    fieldsetOff();
     window.move.mapPinMain.addEventListener('mouseup', openForm);
     window.move.mapPinMain.addEventListener('keydown', openForm);
   };

@@ -7,42 +7,34 @@
   var housingprice = housingFilters.querySelector('#housing-price');
   var mapFeatures = housingFilters.querySelector('#housing-features');
 
-  // var types = {
-  //   'palace': 'Дворец',
-  //   'flat': 'Квартира',
-  //   'house': 'Дом',
-  //   'bungalo': 'Бунгало'
-  // };
-  // var filter = window.pin.renderPins.filter(window.pin.renderPins.element.offer.type.value === 'Дворец');
-  // window.backend.load(filter);
   var filter = function () {
     var offers = window.form.offersArray;
     var resultArray = [];
     var checkHousingType = function (offer) {
-      if (!(housingType.value === 'any')) {
+      if (!(housingType.value === window.const.ANY)) {
         return housingType.value === offer.offer.type;
       }
       return offer;
     };
     var checkHousingRooms = function (offer) {
-      if (!(housingRooms.value === 'any')) {
+      if (!(housingRooms.value === window.const.ANY)) {
         return housingRooms.value === String(offer.offer.rooms);
       }
       return offer;
     };
     var checkHousingGuests = function (offer) {
-      if (!(housingGuests.value === 'any')) {
+      if (!(housingGuests.value === window.const.ANY)) {
         return housingGuests.value === String(offer.offer.guests);
       }
       return offer;
     };
     var checkHousingPrise = function (offer) {
-      if (!(housingprice.value === 'any')) {
-        if (housingprice.value === 'middle') {
+      if (!(housingprice.value === window.const.ANY)) {
+        if (housingprice.value === window.const.MIDDLE) {
           return offer.offer.price < window.const.HIGH_PRISE && offer.offer.price >= window.const.LOW_PRISE;
-        } else if (housingprice.value === 'low') {
+        } else if (housingprice.value === window.const.LOW) {
           return offer.offer.price < window.const.LOW_PRISE;
-        } else if (housingprice.value === 'high') {
+        } else if (housingprice.value === window.const.HIGH) {
           return offer.offer.price >= window.const.HIGH_PRISE;
         }
       }
@@ -59,7 +51,7 @@
       return offer;
     };
 
-    for (var i = 0; i < offers.length && resultArray.length < 5; i++) {
+    for (var i = 0; i < offers.length && resultArray.length < window.const.MAX_PIN_MAP; i++) {
       if (checkHousingType(offers[i]) && checkHousingPrise(offers[i]) && checkHousingRooms(offers[i]) && checkHousingGuests(offers[i]) && checkFeatures(offers[i])) {
         resultArray.push(offers[i]);
       }
