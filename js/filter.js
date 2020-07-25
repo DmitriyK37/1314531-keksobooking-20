@@ -1,11 +1,11 @@
 'use strict';
 (function () {
-  var housingFilters = document.querySelector('.map__filters');
-  var housingType = housingFilters.querySelector('#housing-type');
-  var housingRooms = housingFilters.querySelector('#housing-rooms');
-  var housingGuests = housingFilters.querySelector('#housing-guests');
-  var housingprice = housingFilters.querySelector('#housing-price');
-  var mapFeatures = housingFilters.querySelector('#housing-features');
+  var housingContainer = document.querySelector('.map__filters');
+  var housingType = housingContainer.querySelector('#housing-type');
+  var housingRooms = housingContainer.querySelector('#housing-rooms');
+  var housingGuests = housingContainer.querySelector('#housing-guests');
+  var housingprice = housingContainer.querySelector('#housing-price');
+  var mapFeatures = housingContainer.querySelector('#housing-features');
 
   var filter = function () {
     var offers = window.form.offersArray;
@@ -17,19 +17,19 @@
       return offer;
     };
     var checkHousingRooms = function (offer) {
-      if (!(housingRooms.value === window.const.ANY)) {
+      if (housingRooms.value !== window.const.ANY) {
         return housingRooms.value === String(offer.offer.rooms);
       }
       return offer;
     };
     var checkHousingGuests = function (offer) {
-      if (!(housingGuests.value === window.const.ANY)) {
+      if (housingGuests.value !== window.const.ANY) {
         return housingGuests.value === String(offer.offer.guests);
       }
       return offer;
     };
     var checkHousingPrise = function (offer) {
-      if (!(housingprice.value === window.const.ANY)) {
+      if (housingprice.value !== window.const.ANY) {
         if (housingprice.value === window.const.MIDDLE) {
           return offer.offer.price < window.const.HIGH_PRISE && offer.offer.price >= window.const.LOW_PRISE;
         } else if (housingprice.value === window.const.LOW) {
@@ -58,12 +58,13 @@
     }
     return resultArray;
   };
-  housingFilters.addEventListener('change', window.debounce(function () {
-    window.pin.removePins();
-    window.pin.renderPins(filter());
+
+  housingContainer.addEventListener('change', window.debounce(function () {
+    window.pin.remove();
+    window.pin.render(filter());
   }));
 
   window.filter = {
-    housingFilters: housingFilters
+    housingContainer: housingContainer
   };
 })();

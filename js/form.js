@@ -27,27 +27,33 @@
     fieldsetOn();
     window.backend.load(function (data) {
       window.form.offersArray = data;
-      window.pin.renderPins(data.slice(0, window.const.MAX_PIN_MAP));
+      window.pin.render(data.slice(0, window.const.MAX_PIN_MAP));
     });
     validate();
   };
 
-  var openForm = function (evt) {
+  var openForm = function () {
+    activateForm();
+    window.move.mapPinMain.removeEventListener('mouseup', openFormClickHandler);
+    window.move.mapPinMain.removeEventListener('keydown', openFormKeydownHandler);
+  };
+
+  var openFormClickHandler = function (evt) {
     evt.preventDefault();
-    if (evt.which === 1) {
-      activateForm();
-      window.move.mapPinMain.removeEventListener('mouseup', openForm);
-      window.move.mapPinMain.removeEventListener('keydown', openForm);
-    }
-    if (evt.key === window.const.ENTER) {
-      activateForm();
-      window.move.mapPinMain.removeEventListener('keydown', openForm);
-      window.move.mapPinMain.removeEventListener('mouseup', openForm);
+    if (evt.which === window.const.LEFT_MOUSE_BUTTON) {
+      openForm();
     }
   };
 
-  window.move.mapPinMain.addEventListener('mouseup', openForm);
-  window.move.mapPinMain.addEventListener('keydown', openForm);
+  var openFormKeydownHandler = function (evt) {
+    evt.preventDefault();
+    if (evt.key === window.const.ENTER) {
+      openForm();
+    }
+  };
+
+  window.move.mapPinMain.addEventListener('mouseup', openFormClickHandler);
+  window.move.mapPinMain.addEventListener('keydown', openFormKeydownHandler);
 
   var inputAddress = document.querySelector('#address');
 
@@ -137,7 +143,7 @@
     typeHousValidate();
   });
 
-  typeHous.removeEventListener('keydown', openForm);
+  typeHous.removeEventListener('keydown', openFormKeydownHandler);
 
   priceHous.addEventListener('change', function () {
     typeHousValidate();
@@ -171,12 +177,12 @@
     adForm.reset();
     window.preview.removeImage();
     window.preview.removeAvatar();
-    window.pin.removePins();
-    window.pin.stayMainPin();
-    window.filter.housingFilters.reset();
+    window.pin.remove();
+    window.pin.stayMain();
+    window.filter.housingContainer.reset();
     fieldsetOff();
-    window.move.mapPinMain.addEventListener('mouseup', openForm);
-    window.move.mapPinMain.addEventListener('keydown', openForm);
+    window.move.mapPinMain.addEventListener('mouseup', openFormClickHandler);
+    window.move.mapPinMain.addEventListener('keydown', openFormKeydownHandler);
   };
 
   var onSubmit = function (evt) {
@@ -193,8 +199,6 @@
   });
 
   window.form = {
-    activateForm: activateForm,
-    openForm: openForm,
     addressMap: addressMap,
   };
 })();

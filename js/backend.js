@@ -39,19 +39,28 @@
     document.querySelector('main').appendChild(successMessage);
     var close = document.querySelector('.success');
 
-    var closeSuccess = function (evt) {
+    var closeSuccessMessage = function () {
+      close.remove();
+      close.removeEventListener('click', successMessageClickHandler);
+      document.removeEventListener('keydown', successMessageKeydownHandler);
+    };
+
+    var successMessageClickHandler = function (evt) {
       evt.preventDefault();
       if (evt.which === 1) {
-        close.remove();
+        closeSuccessMessage();
       }
-      if (evt.key === window.const.ESCAPE) {
-        close.remove();
-      }
-      close.removeEventListener('click', closeSuccess);
-      close.removeEventListener('keydown', closeSuccess);
     };
-    close.addEventListener('click', closeSuccess);
-    close.addEventListener('keydown', closeSuccess);
+
+    var successMessageKeydownHandler = function (evt) {
+      evt.preventDefault();
+      if (evt.key === window.const.ESCAPE) {
+        closeSuccessMessage();
+      }
+    };
+
+    close.addEventListener('click', successMessageClickHandler);
+    document.addEventListener('keydown', successMessageKeydownHandler);
   };
 
   var formError = function (message) {
@@ -66,20 +75,30 @@
       errorTextElement.textContent = message;
     }
 
-    var closeError = function (evt) {
+    var closeErrorMessage = function (evt) {
+      evt.preventDefault();
+      error.remove();
+      error.removeEventListener('click', errorMessageClickHandler);
+      document.removeEventListener('keydown', errorMessageKeydownHandler);
+    };
+
+    var errorMessageClickHandler = function (evt) {
       evt.preventDefault();
       if (evt.which === 1) {
-        error.remove();
+        closeErrorMessage();
       }
-      if (evt.key === window.const.ESCAPE) {
-        error.remove();
-      }
-      window.removeEventListener('click', closeError);
-      window.removeEventListener('keydown', closeError);
     };
-    window.addEventListener('click', closeError);
-    errorButton.addEventListener('click', closeError);
-    window.addEventListener('keydown', closeError);
+
+    var errorMessageKeydownHandler = function (evt) {
+      evt.preventDefault();
+      if (evt.key === window.const.ESCAPE) {
+        closeErrorMessage();
+      }
+    };
+
+    window.addEventListener('click', errorMessageClickHandler);
+    errorButton.addEventListener('click', errorMessageClickHandler);
+    window.addEventListener('keydown', errorMessageKeydownHandler);
   };
 
   var upload = function (data) {

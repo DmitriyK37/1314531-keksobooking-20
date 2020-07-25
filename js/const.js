@@ -5,6 +5,7 @@
 
   var ENTER = 'Enter';
   var ESCAPE = 'Escape';
+  var LEFT_MOUSE_BUTTON = 1;
 
   var MIN_Y = 130;
   var MAX_Y = 630;
@@ -43,6 +44,7 @@
     MAX_PIN_MAP: MAX_PIN_MAP,
     ENTER: ENTER,
     ESCAPE: ESCAPE,
+    LEFT_MOUSE_BUTTON: LEFT_MOUSE_BUTTON,
     MIN_Y: MIN_Y,
     MAX_Y: MAX_Y,
     WIDTH_PIN: WIDTH_PIN,
