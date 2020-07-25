@@ -47,7 +47,7 @@
 
     var successMessageClickHandler = function (evt) {
       evt.preventDefault();
-      if (evt.which === 1) {
+      if (evt.which === window.const.LEFT_MOUSE_BUTTON) {
         closeSuccessMessage();
       }
     };
@@ -75,8 +75,7 @@
       errorTextElement.textContent = message;
     }
 
-    var closeErrorMessage = function (evt) {
-      evt.preventDefault();
+    var closeErrorMessage = function () {
       error.remove();
       error.removeEventListener('click', errorMessageClickHandler);
       document.removeEventListener('keydown', errorMessageKeydownHandler);
@@ -84,7 +83,7 @@
 
     var errorMessageClickHandler = function (evt) {
       evt.preventDefault();
-      if (evt.which === 1) {
+      if (evt.which === window.const.LEFT_MOUSE_BUTTON) {
         closeErrorMessage();
       }
     };
@@ -96,9 +95,9 @@
       }
     };
 
-    window.addEventListener('click', errorMessageClickHandler);
+    error.addEventListener('click', errorMessageClickHandler);
     errorButton.addEventListener('click', errorMessageClickHandler);
-    window.addEventListener('keydown', errorMessageKeydownHandler);
+    document.addEventListener('keydown', errorMessageKeydownHandler);
   };
 
   var upload = function (data) {
