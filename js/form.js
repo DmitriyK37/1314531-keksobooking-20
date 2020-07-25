@@ -175,6 +175,7 @@
     window.move.map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     adForm.reset();
+    window.form.addressMap();
     window.preview.removeImage();
     window.preview.removeAvatar();
     window.pin.remove();
