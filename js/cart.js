@@ -3,12 +3,12 @@
 (function () {
   var cartTemplate = document.querySelector('#card').content.querySelector('.map__card');
   var mapFilter = document.querySelector('.map__filters-container');
+  var PHOTO_WIDTH = 45;
+  var PHOTO_HEIGT = 50;
 
   var createCard = function (element) {
     var cartElement = cartTemplate.cloneNode(true);
     var pinAvatar = cartElement.querySelector('.popup__avatar');
-    var pinsPicture = cartElement.querySelector('.popup__photos');
-    var pinPicture = cartElement.querySelector('.popup__photo');
     var featuresCart = cartElement.querySelector('.popup__features');
     var numberRoom = element.offer.rooms;
     var numberQuests = element.offer.guests;
@@ -46,21 +46,36 @@
 
     // Создание списка преимуществ
 
-    var createFeatures = function () {
-      for (var a = 0; a < window.pin.features.length; a++) {
+    var createFeatures = function (features) {
+      for (var a = 0; a < features.length; a++) {
         var renderFeatures = document.createElement('li');
-        renderFeatures.classList.add('popup__feature', 'popup__feature--' + window.pin.features[a]);
+        renderFeatures.classList.add('popup__feature', 'popup__feature--' + features[a]);
         featuresCart.append(renderFeatures);
       }
     };
 
     // Создание списка фотографий
+    var pinsPicture = cartElement.querySelector('.popup__photos');
+    var createPhoto = function (photos) {
+      for (var i = 0; i < photos.length; i++) {
+        var renderPictures = document.createElement('img');
+        renderPictures.classList.add('popup__photo');
+        pinsPicture.append(renderPictures);
+        renderPictures.src = photos[i];
+        renderPictures.alt = 'Фотография жилья';
+        renderPictures.width = PHOTO_WIDTH;
+        renderPictures.height = PHOTO_HEIGT;
+      }
+    };
 
-    pinPicture.src = element.offer.photos;
-    for (var i = 0; i < window.pin.photos.length; i++) {
-      var renderPhotos = pinPicture.cloneNode(true);
-      pinPicture.src = window.pin.photos[i];
-      pinsPicture.appendChild(renderPhotos);
+    if (element.offer.type === window.const.PALACE) {
+      element.offer.type = 'Дворец';
+    } else if (element.offer.type === window.const.FLAT) {
+      element.offer.type = 'Квартира';
+    } else if (element.offer.type === window.const.HOUSE) {
+      element.offer.type = 'Дом';
+    } else if (element.offer.type === window.const.BUNGALO) {
+      element.offer.type = 'Бунгало';
     }
 
     pinAvatar.src = element.author.avatar;
@@ -72,33 +87,33 @@
     cartElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ',' + ' выезд до ' + element.offer.checkout;
     cartElement.querySelector('.popup__description').textContent = element.offer.description;
     featuresCart.innerHTML = '';
-    createFeatures();
-    window.pin.map.insertBefore(cartElement, mapFilter);
+    createFeatures(element.offer.features);
+    pinsPicture.innerHTML = '';
+    createPhoto(element.offer.photos);
+    window.move.map.insertBefore(cartElement, mapFilter);
 
     // Закрытие карточки
 
-    var popupCard = document.querySelector('.map__card');
     var closeCart = document.querySelector('.popup__close');
 
     var closesCart = function (evt) {
       evt.preventDefault();
       if (evt.which === 1) {
-        popupCard.remove();
-        popupCard.removeEventListener('click', closesCart);
-        popupCard.removeEventListener('keydown', closesCart);
+        cartElement.remove();
+        window.pin.inactivePin();
       }
       if (evt.key === 'Escape') {
-        popupCard.remove();
-        window.form.mapPinMain.removeEventListener('click', window.form.openForm);
-        window.form.mapPinMain.removeEventListener('keydown', window.form.openForm);
+        cartElement.remove();
+        window.pin.inactivePin();
       }
+      window.move.map.removeEventListener('keydown', closesCart);
     };
 
     closeCart.addEventListener('click', closesCart);
-    window.pin.map.addEventListener('keydown', closesCart);
+    window.move.map.addEventListener('keydown', closesCart);
   };
 
   window.cart = {
-    createCard: createCard
+    createCard: createCard,
   };
 })();
