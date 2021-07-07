@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var widthPin = 65;
-  var heightPin = 65;
 
   var type = [
     'palace',
@@ -63,9 +61,6 @@
   var minX = 40;
   var maxX = 1160;
 
-  var minY = 130;
-  var maxY = 630;
-
   var pinsAmount = 8;
 
   var getRandomNumber = function (min, max) {
@@ -77,8 +72,6 @@
     return arr[rand];
   }
 
-  var map = document.querySelector('.map');
-
   var getRandomPin = function () {
     var pin = {
       'author': {
@@ -86,7 +79,7 @@
       },
       'offer': {
         'title': getRandomElement(title),
-        'address': getRandomNumber(minX, maxX) + ', ' + getRandomNumber(minY, maxY),
+        'address': getRandomNumber(minX, maxX) + ', ' + getRandomNumber(window.const.minY, window.const.maxY),
         'price': getRandomNumber(priceMin, priceMax),
         'type': getRandomElement(type),
         'rooms': getRandomNumber(roomsMin, roomsMax),
@@ -100,7 +93,7 @@
 
       'location': {
         'x': getRandomNumber(minX, maxX),
-        'y': getRandomNumber(minY, maxY)
+        'y': getRandomNumber(window.const.minY, window.const.maxY)
       }
     };
 
@@ -124,34 +117,26 @@
     var pinPicture = pinElement.querySelector('img');
     pinPicture.src = element.author.avatar;
     pinPicture.alt = element.offer.title;
-    pinElement.style.left = (element.location.x - widthPin / 2) + 'px';
-    pinElement.style.top = (element.location.y - heightPin) + 'px';
+    pinElement.style.left = (element.location.x - window.const.widthPin / 2) + 'px';
+    pinElement.style.top = (element.location.y - window.const.heightPin) + 'px';
 
     // Создание карточек
-    // var openCart = function () {
     pinElement.addEventListener('click', function () {
       var popup = document.querySelector('.popup');
       if (popup) {
         popup.remove();
       }
       window.cart.createCard(element);
-      // pinElement.removeEventListener('click', openCart);
-      // pinElement.removeEventListener('keydown', openCart
     });
-    // pinElement.addEventListener('keydown', function (evt) {
-    //   if (evt.key === 'Enter') {
-    //     if (document.getElementById('card__on')) {
-    //       window.cart.createCard.remove();
-    //     } else {
-    //       window.cart.createCard(element);
-    //       // pinElement.removeEventListener('click', openCart);
-    //       // pinElement.removeEventListener('keydown', openCart);
-    //     }
-    //   }
-    // });
-    // };
-    // pinElement.addEventListener('click', openCart);
-    // pinElement.addEventListener('keydown', openCart);
+    pinElement.addEventListener('keydown', function (evt) {
+      var popup = document.querySelector('.popup');
+      if (evt.key === 'Enter') {
+        if (popup) {
+          popup.remove();
+        }
+        window.cart.createCard(element);
+      }
+    });
 
     return pinElement;
   };
@@ -168,10 +153,7 @@
   };
 
   window.pin = {
-    map: map,
     pins: pins,
-    widthPin: widthPin,
-    heightPin: heightPin,
     features: features,
     photos: photos,
     renderPins: renderPins
